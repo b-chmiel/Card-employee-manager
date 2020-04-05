@@ -5,7 +5,7 @@ import backend.manageBack as manageBack
 
 database = r"database/employee.db"
 conn = sqlite3.connect(database)
-#TODO check if connected
+
 
 
 def main():
@@ -14,7 +14,7 @@ def main():
 
 
 def make_action(arguments):
-    choice = arguments.subparser_name
+    choice = arguments.method_name
     
     if choice == 'add':
         if arguments.e:
@@ -22,7 +22,9 @@ def make_action(arguments):
         if arguments.t:
             manageBack.add_terminal(conn, arguments.t)
         if arguments.c:
-            manageBack.add_card(conn, arguments.c)    
+            manageBack.add_card(conn, arguments.c) 
+        else:
+            print("Provide object to add: [-e Name Surname] [-t ID] [-c ID]")
     elif choice == 'delete':
         if arguments.e:
             manageBack.delete_employee(conn, arguments.e)
@@ -30,6 +32,8 @@ def make_action(arguments):
             manageBack.delete_terminal(conn, arguments.t)
         if arguments.c:
             manageBack.delete_card(conn, arguments.c)  
+        else:
+            print("Provide object to delete: [-e ID] [-t ID] [-c ID]")     
     elif choice == 'list':
         if arguments.objects == 'employees':
             manageBack.list_employees(conn)
@@ -40,7 +44,7 @@ def make_action(arguments):
         if arguments.objects == 'days':
             manageBack.list_days(conn)
         if arguments.objects == 'incidents':
-            manageBack.list_incidents(conn)
+            manageBack.list_incidents(conn)     
     elif choice == 'raport':
         manageBack.raport(conn, arguments.employeeID)
     elif choice == 'assign':
@@ -51,15 +55,15 @@ def make_action(arguments):
 
 def parser_function():
     parser = argparse.ArgumentParser(description="Manager of employee-card system")
-    subparsers = parser.add_subparsers(dest='subparser_name')
-    add_subparser = subparsers.add_parser('add')
+    subparsers = parser.add_subparsers(dest='method_name', description="Main commands to change system state", required=True, title="Main command")
+    add_subparser = subparsers.add_parser('add', description="Adding new objects to system")
     add_subparser.add_argument('-e', type=str, metavar='N', nargs=2, help='Name and surname of employee')
-    add_subparser.add_argument('-t', type=int, metavar='terminal')
-    add_subparser.add_argument('-c', type=int, metavar='card')
+    add_subparser.add_argument('-t', type=int, metavar='terminalID')
+    add_subparser.add_argument('-c', type=int, metavar='cardID')
     delete_subparser = subparsers.add_parser('delete')
-    delete_subparser.add_argument('-e', type=int, metavar='employee')
-    delete_subparser.add_argument('-t', type=int, metavar='terminal')
-    delete_subparser.add_argument('-c', type=int, metavar='card')
+    delete_subparser.add_argument('-e', type=int, metavar='employeeID')
+    delete_subparser.add_argument('-t', type=int, metavar='terminalID')
+    delete_subparser.add_argument('-c', type=int, metavar='cardID')
     list_subparser = subparsers.add_parser('list')
     list_subparser.add_argument('objects', choices={'employees', 'terminals', 'cards', 'days', 'incidents'})
     raport_subparser = subparsers.add_parser('raport')
