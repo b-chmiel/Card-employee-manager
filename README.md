@@ -140,3 +140,11 @@ Keeps all terminal data
 ### __terminalCard__
 
 Keeps data about when terminal was used and by what cardID
+
+
+## Usage screenshots
+
+![Image](images/s1.png)
+![Image](images/s2.png)
+![Image](images/s3.png)
+![Image](images/s4.png)

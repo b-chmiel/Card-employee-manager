@@ -23,7 +23,7 @@ def make_action(arguments):
             manageBack.add_terminal(conn, arguments.t)
         if arguments.c:
             manageBack.add_card(conn, arguments.c) 
-        else:
+        if not arguments.e and not arguments.t and not arguments.c:
             print("Provide object to add: [-e Name Surname] [-t ID] [-c ID]")
     elif choice == 'delete':
         if arguments.e:
@@ -32,7 +32,7 @@ def make_action(arguments):
             manageBack.delete_terminal(conn, arguments.t)
         if arguments.c:
             manageBack.delete_card(conn, arguments.c)  
-        else:
+        if not arguments.e and not arguments.t and not arguments.c:
             print("Provide object to delete: [-e ID] [-t ID] [-c ID]")     
     elif choice == 'list':
         if arguments.objects == 'employees':
