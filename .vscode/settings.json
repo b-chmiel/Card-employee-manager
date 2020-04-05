@@ -1,0 +1,10 @@
+{
+    "python.pythonPath": "C:\\Users\\Bachm\\AppData\\Local\\Programs\\Python\\Python37\\python.exe",
+    "sqltools.connections": [
+        {
+            "database": "${workspaceFolder}\\database/employee.db",
+            "dialect": "SQLite",
+            "name": "employee"
+        }
+    ]
+}
