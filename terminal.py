@@ -3,7 +3,6 @@ import sqlite3
 
 import backend.terminalBack as terminalBack
 
-#TODO check if connected
 
 def main():
     parser = argparse.ArgumentParser()

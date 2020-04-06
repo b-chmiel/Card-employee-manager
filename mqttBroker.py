@@ -1,7 +1,7 @@
 import paho.mqtt.client as mqtt
 
-import manageBack
-import terminalBack
+import backend.manageBack
+import backend.terminalBack
 
 client_name = "Client1"
 host_name = "192.168.0.41"
