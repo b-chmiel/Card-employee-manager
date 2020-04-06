@@ -3,7 +3,6 @@
 
 ## Usage
 
-
 Program is divided into two parts: manager client and terminal
 client. 
 
