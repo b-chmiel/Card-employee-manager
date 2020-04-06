@@ -1,4 +1,5 @@
 import datetime 
+import sqlite3
 
 import managers.terminalCard as terminalCard
 import managers.card as card
@@ -6,6 +7,10 @@ import managers.day as day
 import managers.incident as incident
 import managers.terminal as terminal
 import managers.employee as employee
+
+
+database = r"database/employee.db"
+conn = sqlite3.connect(database)
 
 
 def add_employee(conn, Name, Surname):
@@ -144,7 +149,75 @@ def unassign_card(conn, cardID):
     print("Card", cardID, "unassigned")
 
 
+def make_action(arguments):
+    choice = arguments.method_name
+    
+    if choice == 'add':
+        if arguments.e:
+            add_employee(conn, arguments.e[0], arguments.e[1])
+        if arguments.t:
+            add_terminal(conn, arguments.t)
+        if arguments.c:
+            add_card(conn, arguments.c) 
+        if not arguments.e and not arguments.t and not arguments.c:
+            print("Provide object to add: [-e Name Surname] [-t ID] [-c ID]")
+    elif choice == 'delete':
+        if arguments.e:
+            delete_employee(conn, arguments.e)
+        if arguments.t:
+            delete_terminal(conn, arguments.t)
+        if arguments.c:
+            delete_card(conn, arguments.c)  
+        if not arguments.e and not arguments.t and not arguments.c:
+            print("Provide object to delete: [-e ID] [-t ID] [-c ID]")     
+    elif choice == 'list':
+        if arguments.objects == 'employees':
+            list_employees(conn)
+        if arguments.objects == 'terminals':
+            list_terminals(conn)
+        if arguments.objects == 'cards':
+            list_cards(conn)
+        if arguments.objects == 'days':
+            list_days(conn)
+        if arguments.objects == 'incidents':
+            list_incidents(conn)     
+    elif choice == 'raport':
+        raport(conn, arguments.employeeID)
+    elif choice == 'assign':
+        assign_card_employee(conn, arguments.cardID, arguments.employeeID)
+    elif choice == 'unassign':
+        unassign_card(conn, arguments.cardID)
+
+
+def test():
+    add_employee(conn, "John", "Snow")
+    add_employee(conn, "John", "Snow")
+    add_terminal(conn, 8)
+    add_terminal(conn, 8)
+    add_card(conn, 1)
+    add_card(conn, 1)
+
+    delete_employee(conn, 1)
+    delete_employee(conn, 1)
+    delete_terminal(conn, 1)
+    delete_terminal(conn, 1)
+    delete_card(conn, 97)
+    delete_card(conn, 97)
+
+    list_employees(conn)
+    list_cards(conn)
+    list_incidents(conn)
+
+    raport(conn, 1)
+    raport(conn, 2)
+    
+    assign_card_employee(conn, 100, 3)
+    unassign_card(conn, 1)
+    unassign_card(conn, 100)
+    
+
 def main():
+    #test()
     pass
 
 if __name__ == '__main__':
