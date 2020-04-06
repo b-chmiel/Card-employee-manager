@@ -8,7 +8,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("terminalID", help="TerminalID which will be emulated", type=int)
     args = parser.parse_args()
-
+    
     print("To exit write \"exit\"")
     while terminalBack.run(args.terminalID):
         pass
