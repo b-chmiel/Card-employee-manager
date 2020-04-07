@@ -1,15 +1,8 @@
 import argparse
 import sqlite3
-import paho.mqtt.client as mqtt
 
 import backend.manageBack as manageBack
 
-'''
-client_name = "Client1"
-host_name = "192.168.0.41"
-client = mqtt.Client(client_name)
-client.connect(host_name)
-'''
 
 def main():
     #test()
