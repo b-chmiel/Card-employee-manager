@@ -19,8 +19,7 @@ def run(terminalID, cardID):
     time_now = datetime.datetime.now()
     cardID = ord(cardID)
     terminalCard.create_terminal_card(conn, terminalID, cardID, time_now)
-    change_day(terminalID, cardID, time_now)
-    return 1
+    return change_day(terminalID, cardID, time_now)
 
 
 def change_day(terminalID, cardID, time_now):
@@ -28,16 +27,18 @@ def change_day(terminalID, cardID, time_now):
     isAssigned = card.get_assigned_employee(conn, cardID)
   
     if isAssigned == 0:
-        print("Card is not assigned to employee!")
         incident.create_incident(conn, terminalID, cardID, time_now)
+        return "Card is not assigned to employee!"
 
     if result > 0:
         update_day(result, time_now, terminalID, cardID)
     if result == 0:
         create_day(cardID, time_now, terminalID)
     if result == -1:
-        print("Card is not registered!")
         incident.create_incident(conn, terminalID, cardID, time_now)
+        return "Card is not registered!"
+
+    return ""    
     
 
 def update_day(dayID, time_now, terminalID, cardID):

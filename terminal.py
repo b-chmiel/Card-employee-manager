@@ -20,28 +20,37 @@ def main():
     client.on_message=on_message
     client.loop_forever()
 
+    client.connect(host_name)
+
     client.unsubscribe("system/terminal/ID")
-    client.subscribe("system/terminal/cardID")
+    client.subscribe("system/terminal/card")
+    client.on_message=on_message_card
+
     
-    '''
+    cardID = ""
     while cardID != 'exit':
         cardID = input("Please provide card character or exit keyword >> ")
-        client.publish("system/terminal/cardID", str(cardID))
-    '''
-'''
-    print("To exit write \"exit\"")
-    while terminalBack.run(args.terminalID):
-        pass
-    
-'''
+        client.publish("system/terminal/card", str(cardID))
+        client.loop()
+
+    client.loop_stop()
+    client.disconnect()
 
 def on_message(client, userdata, message):
+    print(1)
     txt_message = str(message.payload.decode("utf-8"))
-    if message.topic == "system/terminal/ID":
-        if txt_message == "False":
-            print("In order to use this terminal please first register it!")
-            exit()    
+    if txt_message == "False":
+        print("In order to use this terminal please first register it!")
+        exit()    
     client.disconnect()      
+
+
+def on_message_card(client, userdata, message):
+    print(2)
+    txt_message = str(message.payload.decode("utf-8"))
+    if len(txt_message) > 0:
+        print(txt_message)  
+    client.loop_stop()  
 
 
 if __name__ == "__main__":

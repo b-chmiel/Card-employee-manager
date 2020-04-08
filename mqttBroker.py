@@ -18,6 +18,8 @@ def main():
     client.on_message=on_message_card
     client.loop_forever()
 
+    client.loop_stop()
+    client.disconnect()
 
 def on_message_id(client, userdata, message):
     txt_message = str(message.payload.decode("utf-8"))
@@ -27,7 +29,7 @@ def on_message_id(client, userdata, message):
         client.publish("system/terminal/ID", "False")
     else:
         client.publish("system/terminal/ID", "")
-    client.disconnect() 
+    client.loop_stop() 
 
 
 def on_message_card(client, userdata, message):
@@ -35,7 +37,7 @@ def on_message_card(client, userdata, message):
     if len(cardID) != 1:
         client.publish("system/terminal/card", "Incorrect card ID!")
     
-    terminalBack.run(terminalID, cardID)
+    client.publish("system/terminal/card", str(terminalBack.run(terminalID, cardID)))
 
 
 if __name__ == "__main__":
