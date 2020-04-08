@@ -15,20 +15,8 @@ database = r"database/employee.db"
 conn = sqlite3.connect(database)
 
 
-def run(terminalID):
-    if not is_terminal_existing(terminalID):
-        print("In order to use this terminal please first register it!")
-        return 0
-
+def run(terminalID, cardID):
     time_now = datetime.datetime.now()
-    cardID = input("Please provide card character or exit keyword >> ")
-    
-    if cardID == 'exit':
-        return 0
-    if len(cardID) != 1:
-        print("Incorrect card ID!")
-        return 1
-
     cardID = ord(cardID)
     terminalCard.create_terminal_card(conn, terminalID, cardID, time_now)
     change_day(terminalID, cardID, time_now)
