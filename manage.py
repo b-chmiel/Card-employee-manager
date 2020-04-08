@@ -31,7 +31,9 @@ def parser_function():
     assign_subparser.add_argument('employeeID', type=int)
     raport_subparser = subparsers.add_parser('unassign')
     raport_subparser.add_argument('cardID', type=int)
-
+    #mqtt_subparser = subparsers.add_parser('mqtt')
+    #mqtt_subparser.add_argument('action', choices={'start', 'stop'})
+    
     return parser.parse_args() 
 
 

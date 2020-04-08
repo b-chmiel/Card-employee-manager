@@ -7,6 +7,7 @@ import managers.day as day
 import managers.incident as incident
 import managers.terminal as terminal
 import managers.employee as employee
+import mqttBroker
 
 
 database = r"database/employee.db"
@@ -187,7 +188,15 @@ def make_action(arguments):
         assign_card_employee(conn, arguments.cardID, arguments.employeeID)
     elif choice == 'unassign':
         unassign_card(conn, arguments.cardID)
-
+    '''
+    elif choice == 'mqtt':
+        if arguments.action == 'start':
+            import subprocess
+            subprocess.call(['python mqttBroker.py'])
+            pass
+        #elif arguments.action == 'stop':
+         #   mqttBroker.stop()     
+    '''
 
 def test():
     add_employee(conn, "John", "Snow")
