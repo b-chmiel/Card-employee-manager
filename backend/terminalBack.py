@@ -38,7 +38,7 @@ def change_day(terminalID, cardID, time_now):
         incident.create_incident(conn, terminalID, cardID, time_now)
         return "Card is not registered!"
 
-    return ""    
+    return "OK"    
     
 
 def update_day(dayID, time_now, terminalID, cardID):
