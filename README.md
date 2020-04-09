@@ -1,5 +1,8 @@
 # Card employee manager
 
+## Disclamer
+
+In windows terminal (cmd) instead of `python3` write `python`!
 
 ## Usage
 
@@ -46,16 +49,22 @@ Used to emulate physical terminal and read card from employees, and log info to 
 
 #### terminal.py usage
 
-Open terminal in main directory of project and invoke command:
+ and invoke command:
 
-`python3 terminal.py -h`
+1. Open terminal in main directory of project
+2. Invoke `python3 mqttBroker.py` (launches mqtt script which is used for managing connections between system and terminals)
+3. Invoke `python3 terminal.py <put here number of desired terminal>`
 
-This will return you basic info how to use this function
+In order to get basic help of terminal.py usage invoke: `python3 terminal.py -h`
 
 There are two terminals available out of the box: __1__ and __2__
 
 You can add other terminals via command 
 `python3 manage.py add -t <terminalID to be added>`
+
+In order to turn off terminal.py just write `exit`
+
+In order to turn off mqttBroker.py press `ctrl + z`
 
 
 ## File system structure
@@ -79,6 +88,9 @@ Functions for manage.py file
 
 Functions for terminal.py file
 
+#### mqttBroker.py
+
+Manages connections between system and remote terminals
 
 ### __database__
 
@@ -143,12 +155,10 @@ Keeps data about when terminal was used and by what cardID
 
 ## Usage screenshots
 
-
-![Image](images/s1.png)
-![Image](images/s2.png)
-![Image](images/s3.png)
-![Image](images/s4.png)
-
+![Image](images/s5.png)
+![Image](images/s6.png)
+![Image](images/s7.png)
+![Image](images/s8.png)
 
 ## Author
 
