@@ -6,9 +6,8 @@ import paho.mqtt.client as mqtt
 
 import backend.terminalBack as terminalBack
 
-client_name = "Terminal"
 host_name = "localhost"
-client = mqtt.Client(client_name)
+client = mqtt.Client()
 
 is_startup = True
 terminalID = 0
@@ -38,9 +37,11 @@ def main():
 
     print("Connected") 
     client.on_message=on_message
-    client.subscribe("terminal/ID/get")
-    client.subscribe("terminal/card/get")
-      
+    id_topic = "terminal/ID/get/" + str(terminalID)
+    card_topic = "terminal/card/get/" + str(terminalID)
+    client.subscribe(card_topic)
+    client.subscribe(id_topic)
+
     time_left = 20
     client.loop_start()
     while is_startup and time_left != 0:
@@ -61,13 +62,14 @@ def main():
 
 def on_message(client, userdata, message):
     txt_message = str(message.payload.decode("utf-8", "ignore"))
-    if message.topic == "terminal/ID/get":
+    id_topic = "terminal/ID/get/" + str(terminalID)
+    if message.topic == id_topic:
         if txt_message == "False":
             print("In order to use this terminal please first register it!")
             exit()        
         global is_startup
         is_startup = False    
-    elif message.topic == "terminal/card/get":
+    elif message.topic == ("terminal/card/get/" + str(terminalID)):
         if len(txt_message) > 1:
             print(txt_message)
 
