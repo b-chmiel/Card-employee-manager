@@ -114,10 +114,6 @@ Images used in documentation
 
 Scripts which directly communicates with sql database. They are used by __backend__ scripts
 
-### __tests__
-
-Tests from development era. Not intended to run due to various changes of project structure
-
 
 ## Database
 
