@@ -33,22 +33,22 @@ def main():
     print("Connected")
     print("Waiting for terminal to connect...")
     client.on_message = on_message
-    client.subscribe("terminal/ID/post")
-    client.subscribe("terminal/card/post")
+    client.subscribe("ID/post")
+    client.subscribe("card/post")
 
     client.loop_forever()
 
 
 def on_message(client, userdata, message):
     txt_message = str(message.payload.decode("utf-8", "ignore"))
-    if message.topic == "terminal/ID/post":
-        topic = "terminal/ID/get/" + str(txt_message)
+    if message.topic == "ID/post":
+        topic = "ID/get/" + str(txt_message)
         if not terminalBack.is_terminal_existing(int(txt_message)):
             client.publish(topic, "False")
         else:
             client.publish(topic, "True")
         print("Connected terminal: ", int(txt_message))
-    elif message.topic == "terminal/card/post":
+    elif message.topic == "card/post":
         result = json.loads(txt_message)
         terminalID = result['terminalID']
         cardID = result['cardID']
@@ -59,7 +59,7 @@ def on_message(client, userdata, message):
         else:
             print("Received message: ", result)
             message = str(terminalBack.run(terminalID, cardID))
-        topic = "terminal/card/get/" + str(terminalID)
+        topic = "card/get/" + str(terminalID)
         client.publish(topic, message)
 
 

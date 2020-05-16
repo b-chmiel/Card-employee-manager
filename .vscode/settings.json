@@ -6,5 +6,6 @@
             "dialect": "SQLite",
             "name": "employee"
         }
-    ]
+    ],
+    "python.linting.enabled": false
 }
