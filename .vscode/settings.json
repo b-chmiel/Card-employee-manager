@@ -1,5 +1,5 @@
 {
-    "python.pythonPath": "C:\\Users\\Bachm\\AppData\\Local\\Programs\\Python\\Python37\\python.exe",
+    "python.pythonPath": "/bin/python3",
     "sqltools.connections": [
         {
             "database": "${workspaceFolder}\\database/employee.db",
