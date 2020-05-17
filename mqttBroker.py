@@ -1,6 +1,7 @@
 import paho.mqtt.client as mqtt
 import json
 import time
+from termcolor import colored
 
 import backend.terminalBack as terminalBack
 
@@ -27,10 +28,11 @@ def main():
             time.sleep(1)
 
     if time_left == 0:
-        print("Cannot connect to mosquitto")
+        print(colored("Cannot connect to mosquitto", 'red'))
+        print(colored("Run command \'sudo service mosquitto start\'", 'yellow'))
         exit()
 
-    print("Connected")
+    print(colored("Connected", 'green'))
     print("Waiting for terminal to connect...")
     client.on_message = on_message
     client.subscribe("ID/post")
@@ -45,9 +47,14 @@ def on_message(client, userdata, message):
         topic = "ID/get/" + str(txt_message)
         if not terminalBack.is_terminal_existing(int(txt_message)):
             client.publish(topic, "False")
+            txt = f"Unregistered terminal {txt_message} detected"
+            print(colored(txt, 'red'))
+            txt = f"Register it using \'python3 manage.py add -t {txt_message}\'"
+            print(colored(txt, 'red'))
         else:
             client.publish(topic, "True")
-        print("Connected terminal: ", int(txt_message))
+            txt = f"Connected terminal: {txt_message}"
+            print(colored(txt, 'green'))
     elif message.topic == "card/post":
         result = json.loads(txt_message)
         terminalID = result['terminalID']
