@@ -1,5 +1,5 @@
 {
-    "python.pythonPath": "/bin/python3",
+    "python.pythonPath": "c:\\Users\\Bachm\\OneDrive - Politechnika Wroclawska\\Semestr4\\IoT\\Lab\\TasksPI\\Project1\\env\\Scripts\\python.exe",
     "sqltools.connections": [
         {
             "database": "${workspaceFolder}\\database/employee.db",

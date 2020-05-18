@@ -1,18 +1,26 @@
 import paho.mqtt.client as mqtt
 import json
 import time
+import os
 from datetime import datetime
 from termcolor import colored
+from dotenv import load_dotenv
+from pathlib import Path
 
 import backend.terminalBack as terminalBack
 
+# Setting environmental variables
+env_path = Path('./authentication') / '.env'
+load_dotenv(dotenv_path=env_path)
 
-broker = "DESKTOP-KQ5BG8O"
+#Setting authentication
+username = os.getenv('SERVER_USERNAME')
+password = os.getenv('SERVER_PASSWORD')
 broker = "Incvisius"
 client = mqtt.Client()
 port = 8883
 client.tls_set("/etc/mosquitto/certs/ca.crt")
-client.username_pw_set(username='server', password='password')
+client.username_pw_set(username=username, password=password)
 
 
 def getTime():
