@@ -1,6 +1,7 @@
 import paho.mqtt.client as mqtt
 import json
 import time
+from datetime import datetime
 from termcolor import colored
 
 import backend.terminalBack as terminalBack
@@ -14,6 +15,10 @@ client.tls_set("/etc/mosquitto/certs/ca.crt")
 client.username_pw_set(username='server', password='password')
 
 
+def getTime():
+    return "[ " + datetime.now().strftime("%X") + " ]"
+
+
 def main():
     time_left = 10
     print("Connecting to mosquitto...")
@@ -22,7 +27,6 @@ def main():
             client.connect(broker, port)
             break
         except Exception as e:
-            print(e)
             print("Waiting for mosquitto: ", time_left, "s")
             time_left -= 1
             time.sleep(1)
@@ -32,7 +36,7 @@ def main():
         print(colored("Run command \'sudo service mosquitto start\'", 'yellow'))
         exit()
 
-    print(colored("Connected", 'green'))
+    print(colored("Connected", 'green'), getTime())
     print("Waiting for terminal to connect...")
     client.on_message = on_message
     client.subscribe("ID/post")
@@ -61,10 +65,10 @@ def on_message(client, userdata, message):
         cardID = result['cardID']
         message = ""
         if len(cardID) != 1:
-            print("Received message: ", result)
+            print("Received message: ", result, "   ", getTime())
             message = "Incorrect card ID!"
         else:
-            print("Received message: ", result)
+            print("Received message: ", result, "   ", getTime())
             message = str(terminalBack.run(terminalID, cardID))
         topic = "card/get/" + str(terminalID)
         client.publish(topic, message)

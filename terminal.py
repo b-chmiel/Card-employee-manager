@@ -2,6 +2,7 @@ import argparse
 import sqlite3
 import json
 import time
+from datetime import datetime
 import paho.mqtt.client as mqtt
 from termcolor import colored
 
@@ -16,6 +17,10 @@ client.username_pw_set(username='client', password='password')
 
 is_startup = True
 terminalID = 0
+
+
+def getTime():
+    return "[ " + datetime.now().strftime("%X") + " ]"
 
 
 def main():
@@ -34,7 +39,6 @@ def main():
             client.connect(broker, port)
             break
         except Exception as e:
-            print(e)
             print("Waiting for mosquitto: ", time_left)
             time_left -= 1
 
@@ -43,7 +47,7 @@ def main():
         print(colored("Run command \'sudo service mosquitto start\'", 'yellow'))
         exit()
 
-    print(colored("Connected", 'green'))
+    print(colored("Connected", 'green'), getTime())
     client.connected_flag = False
     client.on_message = on_message
     id_topic = "ID/get/" + str(terminalID)
@@ -84,7 +88,7 @@ def on_message(client, userdata, message):
 
     elif message.topic == ("card/get/" + str(terminalID)):
         if len(txt_message) > 1:
-            print(txt_message)
+            print(getTime(), "   ", txt_message)
 
     cardID = input("Please provide card character or \'exit\' keyword >> ")
     if cardID != 'exit':
