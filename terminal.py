@@ -3,6 +3,7 @@ import sqlite3
 import json
 import time
 import os
+import socket
 from datetime import datetime
 import paho.mqtt.client as mqtt
 from termcolor import colored
@@ -16,7 +17,8 @@ load_dotenv(dotenv_path=env_path)
 #Setting authentication
 username = os.getenv('CLIENT_USERNAME')
 password = os.getenv('CLIENT_PASSWORD')
-broker = "Incvisius"
+broker = socket.gethostname()
+print(broker)
 client = mqtt.Client()
 port = 8883
 client.tls_set("/etc/mosquitto/certs/ca.crt")
