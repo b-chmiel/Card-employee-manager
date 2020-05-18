@@ -13,7 +13,7 @@ def main():
 
 def parser_function():
     parser = argparse.ArgumentParser(description="Manager of employee-card system")
-    subparsers = parser.add_subparsers(dest='method_name', description="Main commands to change system state", required=True, title="Main command")
+    subparsers = parser.add_subparsers(dest='method_name', description="Main commands to change system state", title="Main command")
     add_subparser = subparsers.add_parser('add', description="Adding new objects to system")
     add_subparser.add_argument('-e', type=str, metavar='N', nargs=2, help='Name and surname of employee')
     add_subparser.add_argument('-t', type=int, metavar='terminalID')
@@ -31,8 +31,6 @@ def parser_function():
     assign_subparser.add_argument('employeeID', type=int)
     raport_subparser = subparsers.add_parser('unassign')
     raport_subparser.add_argument('cardID', type=int)
-    #mqtt_subparser = subparsers.add_parser('mqtt')
-    #mqtt_subparser.add_argument('action', choices={'start', 'stop'})
     
     return parser.parse_args() 
 

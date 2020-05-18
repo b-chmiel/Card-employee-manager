@@ -43,6 +43,8 @@ def main():
     if time_left == 0:
         print(colored("Cannot connect to mosquitto", 'red'))
         print(colored("Run command \'sudo service mosquitto start\'", 'yellow'))
+        print(colored("If mosquitto service is already running:", 'yellow'))
+        print(colored("run \'sudo ./authentication/authCreate.sh\' and configure ssl properly", 'yellow'))
         exit()
 
     print(colored("Connected", 'green'), getTime())

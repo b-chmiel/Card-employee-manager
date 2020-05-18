@@ -49,10 +49,13 @@ def main():
         except Exception as e:
             print("Waiting for mosquitto: ", time_left)
             time_left -= 1
+            time.sleep(1)
 
     if time_left == 0:
         print(colored("Cannot connect to mosquitto", 'red'))
         print(colored("Run command \'sudo service mosquitto start\'", 'yellow'))
+        print(colored("If mosquitto service is already running:", 'yellow'))
+        print(colored("run \'sudo ./authentication/authCreate.sh\' and configure ssl properly", 'yellow'))
         exit()
 
     print(colored("Connected", 'green'), getTime())

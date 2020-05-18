@@ -1,7 +1,7 @@
 rm -r /etc/mosquitto/certs
-rm ca.key
-rm ca.srl
-rm server.csr
+rm authentication/ca.key
+rm authentication/ca.srl
+rm authentication/server.csr
 
 openssl genrsa -des3 -out ca.key 2048
 openssl req -new -x509 -days 1826 -key ca.key -out ca.crt
@@ -14,8 +14,9 @@ mkdir /etc/mosquitto/certs
 mv ca.crt /etc/mosquitto/certs
 mv server.crt /etc/mosquitto/certs
 mv server.key /etc/mosquitto/certs
-
-sudo service mosquitto start
+mv ca.key authentication
+mv ca.srl authentication
+mv server.csr authentication
 
 rm /etc/mosquitto/passwd.conf
 rm /etc/mosquitto/aclfile.conf

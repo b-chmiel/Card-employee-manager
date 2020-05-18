@@ -89,7 +89,7 @@ def list_cards(conn):
 
 def list_days(conn):
     print("Days")
-    print("[ID CardID EmployeeID TimeStart TimeEnd")
+    print("[ID CardID EmployeeID TimeStart TimeEnd TerminalStart TerminalEnd")
     for i in day.get_days(conn):
         print(i)
 
